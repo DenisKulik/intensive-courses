@@ -1,0 +1,17 @@
+{
+  "name": "kv-storage",
+  "version": "1.0.0",
+  "description": "Key-value storage implementation",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "vite",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
