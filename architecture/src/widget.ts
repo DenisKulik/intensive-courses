@@ -50,13 +50,41 @@ class EventEmitter {
 }
 
 class Widget extends EventEmitter {
+  constructor(
+    visitors: [Visitor: Visitor, params?: Record<string, Function>][]
+  ) {
+    super();
+    for (const [visitor, params] of visitors) {
+      new visitor(this, params);
+    }
+  }
+
   render() {}
 
   mount() {}
 }
 
+interface Visitor {
+  new (component: Widget, params?: Record<string, Function>): void;
+}
+
+class Analytics {
+  constructor(component: Widget, events: Record<string, Function> = {}) {
+    for (const [event, callback] of Object.entries(events)) {
+      component.on(event, callback);
+    }
+  }
+}
+
 class Button extends Widget {}
 
-const btn = new Button();
+const btn = new Button([
+  [
+    Analytics,
+    {
+      click: () => console.log("addedUser"),
+    },
+  ],
+]);
 
 btn.on("click", console.log);
